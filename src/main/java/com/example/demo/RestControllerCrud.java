@@ -34,35 +34,26 @@ public class RestControllerCrud {
     public List<ModelPersonas>listar(){
     return repo.findAll();
     }
-    
-      @GetMapping(path = "/personas/{clave}")
-    public Optional<ModelPersonas> getPersonaById(@PathVariable String clave) {
-          
-        return repo.findById(clave);
-    }
    
     @PostMapping(path ="/personarest")
     public void insertar(@RequestBody ModelPersonas per){
     repo.save(per);
     }
    
-//    @PutMapping(path="/personarest")
-//    public void modificar(@RequestBody ModelPersonas per){
-//    repo.save(per);
-//    }
-//    @PutMapping(path="/personarest/{clave}")
-//    public ModelPersonas modificar(@RequestBody ModelPersonas per, @PathVariable("clave") String clave){
-//    per.setClave(clave);
-//    return repo.save(per);
-//    }
     @PutMapping(path="/personarest")
-    public void updatePersona(@RequestBody ModelPersonas per){
-        repo.save(per);
-       }
+    public void modificar(@RequestBody ModelPersonas per  ){
+    repo.save(per);
+    }
    
     @DeleteMapping(value ="personarest/{clave}")
     public void eleminar(@PathVariable("clave") String clave){
     repo.deleteById(clave);
+    }
+   
+      @GetMapping(value ="personarest/{clave}")
+    public ModelPersonas uno(@PathVariable("clave") String clave){
+        Optional<ModelPersonas> findById = repo.findById(clave);
+    return findById.get();
     }
     
 }
